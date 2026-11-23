@@ -1,0 +1,167 @@
+import React, { useState } from 'react';
+import {
+  Menu,
+  ShieldCheck,
+  Search,
+  WifiOff,
+  HelpCircle,
+  FileImage,
+  ChevronRight,
+  Home
+} from 'lucide-react';
+import { NavView } from './Sidebar';
+import { PortalPreset } from '../../types';
+import { PORTAL_PRESETS } from '../../data/presets';
+
+interface TopNavigationProps {
+  currentView: NavView;
+  activePreset?: PortalPreset;
+  isOnline: boolean;
+  onOpenMobileMenu: () => void;
+  onOpenPrivacyModal: () => void;
+  onSelectView: (view: NavView) => void;
+  onSelectPreset?: (preset: PortalPreset) => void;
+}
+
+export const TopNavigation: React.FC<TopNavigationProps> = ({
+  currentView,
+  activePreset,
+  isOnline,
+  onOpenMobileMenu,
+  onOpenPrivacyModal,
+  onSelectView,
+  onSelectPreset
+}) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
+
+  const viewTitles: Record<NavView, string> = {
+    landing: 'Overview & Tour',
+    editor: 'Image Editor',
+    compressor: 'Image Compressor',
+    batch: 'Batch Processing',
+    signature: 'Signature Cleaner',
+    presets: 'Presets Library',
+    guide: 'Processing Guide',
+    settings: 'Settings',
+    faq: 'Help & FAQ',
+    privacy: 'Privacy Architecture'
+  };
+
+  const filteredPresets = searchQuery.trim()
+    ? PORTAL_PRESETS.filter(
+        (p) =>
+          p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          p.category.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : [];
+
+  return (
+    <header className="h-13 bg-white border-b border-[#DFE2DC] px-4 md:px-6 flex items-center justify-between sticky top-0 z-20">
+      {/* Left: Mobile Toggle & Tool Title */}
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onOpenMobileMenu}
+          className="md:hidden p-1.5 text-[#737872] hover:text-[#242824] rounded-[2px]"
+          aria-label="Open navigation menu"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+
+        <div className="flex items-center gap-2 text-xs min-w-0">
+          <div
+            onClick={() => onSelectView('landing')}
+            className="flex items-center gap-1.5 font-semibold text-[#242824] cursor-pointer hover:opacity-85 transition-opacity shrink-0"
+            title="Return to Product Tour & Overview"
+          >
+            <FileImage className="w-4 h-4 text-[#34483E]" />
+            <span>SpecFit</span>
+          </div>
+          <ChevronRight className="w-3.5 h-3.5 text-[#CBD0C8] shrink-0" />
+          <span className="font-medium text-[#242824] truncate max-w-[110px] sm:max-w-none">{viewTitles[currentView]}</span>
+        </div>
+      </div>
+
+      {/* Center: Preset Quick Finder */}
+      <div className="relative hidden md:block max-w-xs w-full mx-4">
+        <div className="relative">
+          <Search className="w-3.5 h-3.5 text-[#737872] absolute left-2.5 top-2.5 pointer-events-none" />
+          <input
+            id="top-nav-preset-search"
+            aria-label="Quick search presets"
+            type="text"
+            placeholder="Quick search presets (100KB, Profile, Visa)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setSearchFocused(true)}
+            onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
+            className="w-full text-xs pl-8 pr-3 py-1.5 bg-[#F5F5F2] focus:bg-white border border-[#DFE2DC] rounded-[2px] focus:outline-none focus:border-[#34483E] transition-colors"
+          />
+        </div>
+
+        {searchFocused && filteredPresets.length > 0 && (
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-[#DFE2DC] rounded-[3px] shadow-md py-1 z-30 max-h-60 overflow-y-auto">
+            {filteredPresets.map((p) => (
+              <button
+                key={p.id}
+                onMouseDown={() => {
+                  if (onSelectPreset) onSelectPreset(p);
+                  onSelectView('editor');
+                  setSearchQuery('');
+                }}
+                className="w-full px-3 py-1.5 text-left text-xs hover:bg-[#F5F5F2] flex items-center justify-between cursor-pointer"
+              >
+                <div>
+                  <span className="font-medium text-[#242824]">{p.name}</span>
+                  <span className="text-[10px] text-[#737872] ml-2">
+                    {p.photo.exactWidth ? `${p.photo.exactWidth}×${p.photo.exactHeight} px` : `${p.photo.minWidth}–${p.photo.maxWidth} px`} • ≤ {p.photo.maxSizeKb} KB
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-[#34483E] bg-[#EAECE7] px-1.5 py-0.5 rounded-[2px]">
+                  {p.code}
+                </span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Right: Status Badges & Controls */}
+      <div className="flex items-center gap-2.5">
+        <button
+          onClick={() => onSelectView('landing')}
+          className="hidden sm:flex items-center gap-1.5 text-xs text-[#242824] hover:bg-[#F5F5F2] border border-[#DFE2DC] px-2.5 py-1 rounded-[2px] font-medium cursor-pointer transition-colors shadow-2xs"
+          title="Return to Product Tour & Overview"
+        >
+          <Home className="w-3.5 h-3.5 text-[#34483E]" />
+          <span>Tour</span>
+        </button>
+
+        {!isOnline && (
+          <span className="flex items-center gap-1 text-[11px] text-[#A87532] bg-[#FAF5EB] border border-[#E8DAC2] px-2 py-0.5 rounded-[2px]">
+            <WifiOff className="w-3 h-3" />
+            <span className="hidden sm:inline">Offline Mode</span>
+          </span>
+        )}
+
+        <button
+          onClick={onOpenPrivacyModal}
+          className="flex items-center gap-1.5 text-xs text-[#39765A] hover:text-[#2C5F48] bg-[#EAF2ED] border border-[#BFD9CA] px-2.5 py-1 rounded-[2px] font-medium cursor-pointer transition-colors"
+          title="Inspect live privacy and network logs"
+        >
+          <ShieldCheck className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">100% On-Device</span>
+        </button>
+
+        <button
+          onClick={() => onSelectView('faq')}
+          className="p-1 text-[#737872] hover:text-[#242824] rounded-[2px] transition-colors cursor-pointer"
+          title="Help & FAQ"
+        >
+          <HelpCircle className="w-4 h-4" />
+        </button>
+      </div>
+    </header>
+  );
+};

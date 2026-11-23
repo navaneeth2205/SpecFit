@@ -1,0 +1,18 @@
+{
+  "short_name": "SpecFit",
+  "name": "SpecFit — Universal Image & Document Preparation Utility",
+  "description": "Crop any image. Choose any dimensions. Set any file size. 100% on-device processing with zero data uploads.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any 192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#F5F5F2",
+  "theme_color": "#34483E",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/"
+}

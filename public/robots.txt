@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://specfit.pages.dev/sitemap.xml

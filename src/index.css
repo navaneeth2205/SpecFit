@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+@theme {
+  --color-main-bg: #F5F5F2;
+  --color-main-surface: #FFFFFF;
+  --color-primary-text: #242824;
+  --color-secondary-text: #737872;
+  --color-primary-accent: #34483E;
+  --color-accent-hover: #26362E;
+  --color-border-color: #DFE2DC;
+  --color-muted-surface: #F0F1ED;
+  --color-status-success: #39765A;
+  --color-status-warning: #A87532;
+  --color-status-error: #B44B43;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  --bg-main: #F5F5F2;
+  --surface-main: #FFFFFF;
+  --text-primary: #242824;
+  --text-secondary: #737872;
+  --accent-primary: #34483E;
+  --border-main: #DFE2DC;
+  --surface-muted: #F0F1ED;
+  --success: #39765A;
+  --warning: #A87532;
+  --error: #B44B43;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #CBD0C8 #F0F1ED;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+/* Distinctive typography utility classes */
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Accessible focus outline conforming to WCAG 2.1 AA */
+*:focus-visible {
+  outline: 2px solid #34483E !important;
+  outline-offset: 2px !important;
+}
+
+/* Keyframes for smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(52, 72, 62, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(52, 72, 62, 0);
+  }
+}
+
+@keyframes liveBadgePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.animate-badge-dot {
+  animation: liveBadgePulse 1.8s infinite ease-in-out;
+}
+
+/* Interactive Card Hover & Lift with visible tactile feedback */
+.interactive-card {
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 0.2s ease,
+              background-color 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.interactive-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px -10px rgba(36, 40, 36, 0.12), 0 6px 12px -4px rgba(36, 40, 36, 0.05);
+  border-color: #34483E;
+}
+
+/* Tactile Button Transitions with visible lift, hover glow & click compression */
+.btn-tactile {
+  transition: background-color 0.18s ease,
+              border-color 0.18s ease,
+              color 0.18s ease,
+              transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.18s ease;
+  will-change: transform;
+}
+
+.btn-tactile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -4px rgba(52, 72, 62, 0.25);
+}
+
+.btn-tactile:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 4px -2px rgba(52, 72, 62, 0.2);
+}
+
+/* Chip / Segmented Button Tactile Transition */
+.chip-tactile {
+  transition: background-color 0.15s ease,
+              border-color 0.15s ease,
+              color 0.15s ease,
+              transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.15s ease;
+}
+
+.chip-tactile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px -2px rgba(36, 40, 36, 0.1);
+}
+
+.chip-tactile:active {
+  transform: scale(0.96);
+}
+
+/* Hide scrollbar for clean horizontal tab scrolling on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Restrained, human-crafted desktop-utility scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F0F1ED;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD0C8;
+  border-radius: 4px;
+  border: 2px solid #F0F1ED;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9FA69C;
+}
