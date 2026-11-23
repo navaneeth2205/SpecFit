@@ -1,92 +1,115 @@
-# SpecFit — Zero-Upload Document Formatting Platform
+# SpecFit — Universal Image Preparation & Compression Utility
 
-> **Documents prepared to exact specifications.**  
-> A production-ready, client-side document preparation platform designed for government examinations, university entrance tests, recruitment portals, and passport authorities.
+> **"Your image. Your dimensions. Your file size. Your control."**  
+> A desktop-grade, privacy-first image utility for cropping freely, setting exact pixel dimensions, and dialling in strict kilobyte constraints. Runs 100% in-browser with zero server uploads.
 
----
+🌐 **Live Application:** [https://specfit-tfch.onrender.com/](https://specfit-tfch.onrender.com/)
 
-## 1. Product Overview
-
-Online recruitment and governmental portals (including **GATE, UPSC, SSC, IBPS, Passport Seva, and CUET**) enforce rigid automated image validation rules. Uploads are rejected if file sizes differ by even a fraction of a kilobyte or if pixel dimensions, aspect ratios, or lighting fail automated checks.
-
-**SpecFit** solves this with an exact, browser-based preparation suite:
-- **Zero Server Uploads**: 100% of image decoding, cropping, filter math, and adaptive compression occurs on-device in browser memory.
-- **Adaptive Binary-Search Compression**: Never assumes linear compression; dynamically converges on the mandated kilobyte envelope.
-- **Anthropometric Face Alignment**: SVG facial guide aligns head crown, eye line, and chin baseline to guarantee official coverage ratios (60%–70% or 70%–80%).
-- **Stroke-Preserving Signature Enhancer**: Whitens background camera shadows while preserving fine hairline pen stroke tapers.
-- **Live Specification Validator**: Performs byte-level checks against official exam cycle notifications.
-- **JSZip Combined Export**: Packages validated documents with a cryptographic verification audit report.
+[![Status](https://img.shields.io/badge/status-production--ready-34483E?style=flat-square)](https://specfit-tfch.onrender.com/)
+[![Tests](https://img.shields.io/badge/tests-40%2F40%20passing-39765A?style=flat-square)](https://github.com/navaneeth2205/SpecFit)
+[![Privacy](https://img.shields.io/badge/privacy-100%25%20on--device-39765A?style=flat-square)](https://specfit-tfch.onrender.com/)
+[![License](https://img.shields.io/badge/license-MIT-737872?style=flat-square)](LICENSE)
 
 ---
 
-## 2. Design Philosophy
+## 1. Product Identity & Overview
 
-SpecFit is designed following **Swiss editorial typography** and desktop productivity software principles:
-- **Restrained Color Palette**:
-  - Main Background: `#FAFAF8`
-  - Main Surface: `#FFFFFF`
-  - Primary Text: `#202522`
-  - Secondary Text: `#747A75`
-  - Primary Accent: `#263B35` (Deep spruce)
-  - Border: `#E5E7E3`
-  - Muted Surface: `#F2F3F0`
-  - Semantic Status: `#39765A` (Success), `#A87532` (Warning), `#B44B43` (Error)
-- **Clear Typography Hierarchy**: Inter for all user interface controls and metrics; DM Serif Display for editorial headlines; JetBrains Mono for dimensions and byte values.
-- **No AI Aesthetic Gimmicks**: No neon gradients, glowing cards, glassmorphism, floating decorative blobs, or fake metrics.
+SpecFit is a universal image preparation application built for students, photographers, office workers, designers, and everyday users. It replaces generic AI-bloated SaaS dashboards with a dependable, classic desktop utility workflow.
+
+You never need to choose a preset before editing. Custom editing is the default experience:
+1. **Upload or ingest an image from any source** (local disk, clipboard paste `Ctrl+V`, web URL, or mobile camera).
+2. **Crop or resize freely** with custom width and height in pixels.
+3. **Lock or unlock aspect ratios** (1:1, 3:4, 4:5, 16:9, 3:2, or custom ratio).
+4. **Set exact file-size constraints** (minimum KB, maximum KB, or exact range).
+5. **Select output format** (JPEG, PNG, WebP) and download the verified Blob.
 
 ---
 
-## 3. Supported Portal Presets
+## 2. Core Workhorse Tools
 
-| Portal Code | Organization / Exam | Photo Target | Signature Target | Official Citation Basis |
-| :--- | :--- | :--- | :--- | :--- |
-| **GATE** | IITs / GATE Committee | `480 × 640 px` (5–200 KB) | `560 × 160 px` (5–200 KB) | IIT Roorkee Brochure Sec 4.4 |
-| **UPSC** | Union Public Service Commission | `350–1000 px` sq (20–300 KB) | `350–1000 px` sq (20–300 KB) | UPSC OTR Portal Guidelines |
-| **SSC** | Staff Selection Commission (CGL/CHSL) | `3.5 × 4.5 cm` (20–50 KB) | `4.0 × 2.0 cm` (10–20 KB) | SSC Notice Annexure III |
-| **IBPS** | Banking Personnel Selection (PO/Clerk) | `200 × 230 px` (20–50 KB) | `140 × 60 px` (10–20 KB) | IBPS CRP Common Guidelines |
-| **PSK** | Passport Seva Kendra (MEA) | `450 × 600 px` (10–300 KB) | `300 × 120 px` (10–100 KB) | MEA Passport Application Rules |
-| **CUET** | National Testing Agency (NTA) | `400 × 500 px` (10–200 KB) | `200 × 100 px` (4–30 KB) | NTA Information Bulletin |
-| **NSP** | National Scholarship Portal | `250 × 300 px` (10–100 KB) | `200 × 80 px` (5–50 KB) | NSP Student Guidelines |
-| **CUSTOM** | User-Configurable Spec Builder | Custom dimensions & bounds | Custom dimensions & bounds | Configured per recruitment ad |
+###  Universal Image Editor (Flagship)
+- **Frictionless Ingestion**: Drag-and-drop local files, paste directly from clipboard (`Ctrl+V`), fetch any image URL, snap via mobile camera, or load curated sample fixtures.
+- **Genuine Dimensional Freedom**: Enter arbitrary pixel width and height without artificial limits.
+- **Aspect Ratio Control**: Free crop, locked aspect ratio, original ratio, or custom W:H ratio.
+- **Framing Modes**: Crop viewport & scale to fit, fit inside (letterbox background), or resample entire image.
+- **Rotation & Zoom**: Smooth interactive zoom (50%–300%) and 90° clockwise/counter-clockwise stepping.
+- **Live Encoded Blob Audit**: Encodes actual JPEG/PNG/WebP blobs in real time, verifying true byte size before download.
+
+###  Quick Image Compressor
+- **Binary Search Convergence**: Sweeps quantization tables iteratively to hit an exact maximum kilobyte budget without blurry downscaling.
+- **Multi-Unit Precision**: Set limits in Bytes, KB, or MB.
+- **Visual Reduction Metric**: Live calculation of byte savings and reduction percentage.
+
+### ✍️ Signature & Scan Cleaner
+- **Stroke-Preserving Filter Engine**: S-curve luminance processing whitens yellowish room glare and paper shadows while deepening ink pen strokes.
+- **Dual Export**: Export with pure white background (JPEG) or transparent alpha channel (PNG).
+
+### 📦 Parallel Batch Processing & ZIP Exporter
+- **Multi-File Queue**: Ingest dozens of files simultaneously.
+- **Shared Parameters**: Apply uniform target dimensions and file-size constraints across the queue.
+- **Verified ZIP Archive**: Bundles all processed assets into a clean ZIP archive with an automated plain-text conformance manifest (`specfit_batch_manifest.txt`).
+
+### 📚 Standards & Presets Directory (Secondary)
+- Optional benchmarks for international passports, visas, and recruitment portals (GATE, UPSC, SSC, IBPS, Schengen, US Visa).
+- Selecting a preset pre-fills the editor but **never permanently restricts custom editing**.
 
 ---
 
-## 4. Privacy & Zero-Upload Architecture
+## 3. Zero-Upload Privacy Architecture
+
+SpecFit has no backend database, no upload servers, and no tracking telemetry.
 
 ```text
 [User Device]
   │
-  ├── File API / Drag & Drop
-  ├── HTML5 Canvas Sandbox
-  ├── Adaptive Binary-Search Compressor
+  ├── File API / Clipboard / Web Camera
+  ├── In-Memory HTML5 Canvas Sandbox
+  ├── Adaptive Binary-Search Quantization Engine
   ├── Automatic EXIF Geodata Stripping
   └── JSZip In-Memory Archiver
   │
   └── [Network Wire] ──► 0 BYTES TRANSMITTED
 ```
 
-- **Runtime Network Interceptor**: SpecFit monitors all outbound network traffic and displays a live network audit log verifying 0 bytes transmitted.
-- **Autonomous PWA**: Service Worker (`public/sw.js`) caches the entire application shell for full offline functionality.
-- **EXIF Cleansing**: Rendering to canvas purges camera serials, timestamps, and GPS coordinates automatically.
+- **EXIF Cleansing**: Rendering to canvas automatically purges embedded camera serial numbers, device metadata, and GPS geolocations.
+- **Offline PWA**: Fully functional offline via Service Worker caching (`public/sw.js`).
+- **Live Network Inspector**: Built-in network audit modal monitors all outbound connections and confirms zero image bytes are transmitted.
+
+---
+
+## 4. Design & Accessibility Standards
+
+- **Classic Desktop Utility Aesthetic**: Neutral backgrounds (`#F5F5F2`), restrained spruce accents (`#34483E`), thin borders (`#DFE2DC`), and compact controls.
+- **Distinctive Typography**: Instrument Serif for editorial headlines, Plus Jakarta Sans for UI controls, and JetBrains Mono for metrics and byte measurements.
+- **Tactile Interactions**: Deep card elevation (`-5px`), active button compression (`scale(0.96)`), breathing live status indicator (`.animate-badge-dot`), and interactive before/after split slider (`.animate-pulse-glow`).
+- **WCAG 2.1 AA Accessibility**:
+  - Explicit `<label htmlFor="...">` bindings on all form inputs.
+  - `aria-pressed` states on all toggle buttons.
+  - Full keyboard accessibility with high-contrast `2px solid #34483E` focus rings (`*:focus-visible`).
+  - Screen reader live announcements via `aria-live="polite"`.
+- **Responsive Across All Viewports**: Cleanly adapts from 320px mobile screens to multi-monitor 4K displays. Desktop sidebar collapses to an accessible mobile drawer on screens `< 768px`.
 
 ---
 
 ## 5. Development & Testing
 
 ### Prerequisites
-- Node.js 18+ (tested on Node v24)
+- Node.js 18+
 - npm 9+
 
-### Commands
-
+### Quick Start
 ```bash
+# Clone the repository
+git clone https://github.com/navaneeth2205/SpecFit.git
+cd SpecFit
+
 # Install dependencies
 npm install
 
-# Start development server
+# Start local development server
 npm run dev
 
-# Run unit and integration tests
+# Run Vitest test suite (40 tests across 8 suites)
 npm test
 
 # Build production bundle
@@ -98,9 +121,18 @@ npm run preview
 
 ---
 
-## 6. Deployment Guide
+## 6. Deployment
 
-The production build in `dist/` is 100% static and requires no backend server or database:
-- **Cloudflare Pages**: Connect Git repository, set build command `npm run build`, and output directory `dist`.
-- **Vercel**: Pre-configured with `vercel.json` for SPA rewrites and strict HTTP security headers.
-- **Netlify**: Pre-configured with `public/_redirects` for client-side routing.
+SpecFit compiles to a 100% static client-side bundle in `dist/`.
+
+### Live Deployment
+- **Render**: [https://specfit-tfch.onrender.com/](https://specfit-tfch.onrender.com/) (configured via [render.yaml](render.yaml))
+- **Cloudflare Pages**: Run `npx wrangler pages deploy dist --project-name=specfit`
+- **Vercel**: Run `npx vercel --prod`
+- **Netlify**: Drag and drop `dist/` into [app.netlify.com/drop](https://app.netlify.com/drop)
+
+---
+
+## 7. License
+
+MIT License. Designed and engineered for dependable everyday image preparation.
