@@ -25,7 +25,10 @@ import {
   Info,
   Eye,
   SlidersHorizontal,
-  Compass
+  Compass,
+  FilePlus,
+  FileDown,
+  FileText
 } from 'lucide-react';
 import { PORTAL_PRESETS } from '../../data/presets';
 
@@ -103,6 +106,9 @@ interface LandingPageProps {
   onOpenCompressor: () => void;
   onOpenBatch: () => void;
   onOpenSignature: () => void;
+  onOpenImageToPdf: () => void;
+  onOpenPdfCompressor: () => void;
+  onOpenPdfToImage: () => void;
   onOpenPresets: () => void;
   onLoadSampleIntoEditor: (sampleType: 'portrait' | 'signature' | 'document' | 'landscape') => void;
   onLoadImageUrlIntoEditor: (url: string) => void;
@@ -113,6 +119,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   onOpenCompressor,
   onOpenBatch,
   onOpenSignature,
+  onOpenImageToPdf,
+  onOpenPdfCompressor,
+  onOpenPdfToImage,
   onOpenPresets,
   onLoadSampleIntoEditor,
   onLoadImageUrlIntoEditor
@@ -253,11 +262,27 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </button>
 
-              <a
-                href="#showcase"
-                className="w-full sm:w-auto px-5 py-2.5 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-sm font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-sm text-center btn-tactile"
+              <button
+                onClick={onOpenImageToPdf}
+                className="w-full sm:w-auto px-4 py-2.5 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-sm font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-sm flex items-center justify-center gap-2 btn-tactile"
               >
-                Inspect Live Web Examples
+                <FilePlus className="w-4 h-4 text-[#34483E]" aria-hidden="true" />
+                <span>Images to PDF</span>
+              </button>
+
+              <button
+                onClick={onOpenPdfCompressor}
+                className="w-full sm:w-auto px-4 py-2.5 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-sm font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-sm flex items-center justify-center gap-2 btn-tactile"
+              >
+                <FileDown className="w-4 h-4 text-[#34483E]" aria-hidden="true" />
+                <span>PDF Reducer</span>
+              </button>
+
+              <a
+                href="#tools"
+                className="w-full sm:w-auto px-4 py-2.5 text-[#737872] hover:text-[#242824] text-sm font-medium transition-colors text-center"
+              >
+                All 7 Tools ↓
               </a>
             </div>
 
@@ -783,177 +808,325 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* 6. Core Utility Modules Breakdown */}
         <section id="tools" aria-labelledby="tools-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 space-y-2">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div className="text-center max-w-2xl mx-auto space-y-2">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAECE7] px-2 py-0.5 rounded-[2px]">
-                Workhorse Tools
+                Workhorse Utilities
               </span>
               <h2 id="tools-heading" className="font-serif text-3xl sm:text-4xl text-[#242824]">
                 Engineered for utility, not novelty
               </h2>
               <p className="text-xs sm:text-sm text-[#737872]">
-                Four dedicated desktop workflows built to do one job reliably, with zero unnecessary decorative UI elements.
+                Seven dedicated desktop workflows across image and PDF processing built to do their jobs reliably, 100% on-device.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-              {/* Tool 1: Universal Image Editor */}
-              <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
-                        <ImageIcon className="w-5 h-5" aria-hidden="true" />
-                      </div>
-                      <h3 className="text-base font-bold text-[#242824]">Universal Image Editor</h3>
-                    </div>
-                    <span className="text-[11px] font-mono text-[#737872]">Flagship</span>
-                  </div>
-                  <p className="text-xs text-[#737872] leading-relaxed">
-                    Crop freely or lock to any aspect ratio (1:1, 3:4, 4:5, 16:9, 3:2, or custom W:H). Set exact output pixel dimensions, pan and zoom interactively, rotate in 90° increments, and dial in strict target byte limits.
-                  </p>
-                  <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Bi-cubic canvas resampling with fit or stretch framing</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Real-time Blob byte measurement with pass/fail badges</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Support for JPEG, PNG, and WebP exports</span>
-                    </li>
-                  </ul>
+            {/* SUITE 1: IMAGE SUITE */}
+            <div className="space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DFE2DC] pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#34483E] bg-[#EAECE7] px-2.5 py-0.5 rounded-[2px]">
+                    Image Suite
+                  </span>
+                  <h3 className="text-sm font-semibold text-[#242824]">Crop, Resize, Compress & Clean Signatures</h3>
                 </div>
-                <div className="pt-4 border-t border-[#DFE2DC]">
-                  <button
-                    onClick={onOpenEditor}
-                    className="w-full py-2 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
-                  >
-                    Open Image Editor →
-                  </button>
-                </div>
+                <span className="text-[11px] text-[#737872]">4 Dedicated Tools</span>
               </div>
 
-              {/* Tool 2: Focused Image Compressor */}
-              <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
-                        <Minimize2 className="w-5 h-5" aria-hidden="true" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+                {/* Tool 1: Universal Image Editor */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <ImageIcon className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">Universal Image Editor</h4>
                       </div>
-                      <h3 className="text-base font-bold text-[#242824]">Quick Image Compressor</h3>
+                      <span className="text-[11px] font-mono text-[#737872]">Flagship</span>
                     </div>
-                    <span className="text-[11px] font-mono text-[#737872]">Byte Focused</span>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      Crop freely or lock to any aspect ratio (1:1, 3:4, 4:5, 16:9, 3:2, or custom W:H). Set exact output pixel dimensions, pan and zoom interactively, rotate in 90° increments, and dial in strict target byte limits.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Bi-cubic canvas resampling with fit or stretch framing</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Real-time Blob byte measurement with pass/fail badges</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Support for JPEG, PNG, and WebP exports</span>
+                      </li>
+                    </ul>
                   </div>
-                  <p className="text-xs text-[#737872] leading-relaxed">
-                    When you already have the right framing and just need a file strictly under 50 KB, 100 KB, or 200 KB. Encodes your image iteratively until the actual output matches your exact byte constraint.
-                  </p>
-                  <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Target byte inputs in Bytes, KB, or MB</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Calculates precise savings and byte reduction %</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Never produces blurry results through intelligent scaling fallback</span>
-                    </li>
-                  </ul>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenEditor}
+                      className="w-full py-2 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open Image Editor →
+                    </button>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-[#DFE2DC]">
-                  <button
-                    onClick={onOpenCompressor}
-                    className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
-                  >
-                    Open Quick Compressor →
-                  </button>
+
+                {/* Tool 2: Focused Image Compressor */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <Minimize2 className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">Quick Image Compressor</h4>
+                      </div>
+                      <span className="text-[11px] font-mono text-[#737872]">Byte Focused</span>
+                    </div>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      When you already have the right framing and just need a file strictly under 50 KB, 100 KB, or 200 KB. Encodes your image iteratively until the actual output matches your exact byte constraint.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Target byte inputs in Bytes, KB, or MB</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Calculates precise savings and byte reduction %</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Never produces blurry results through intelligent scaling fallback</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenCompressor}
+                      className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open Quick Compressor →
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tool 3: Signature & Document Cleaner */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <PenTool className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">Signature & Scan Cleaner</h4>
+                      </div>
+                      <span className="text-[11px] font-mono text-[#737872]">Filter Engine</span>
+                    </div>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      Turn messy mobile camera photos of paper signatures and documents into crisp, publication-ready scans. Whitens yellowish lighting shadows while deepening ink pen strokes.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Stroke-preserving S-curve luminance filter</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Removes gray shadows and ambient room glare</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Transparent PNG or pure white JPEG backgrounds</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenSignature}
+                      className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open Signature Cleaner →
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tool 4: Parallel Batch Processing */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <Files className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">Batch Queue & ZIP Exporter</h4>
+                      </div>
+                      <span className="text-[11px] font-mono text-[#737872]">Multi-File</span>
+                    </div>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      Process dozens of images simultaneously. Apply shared dimensions and file size targets across the whole queue, audit individual status badges, and download everything in one valid ZIP archive.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Parallel Web Worker execution without UI freezing</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Automatic plain-text manifest generation</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>One-click batch ZIP export</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenBatch}
+                      className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open Batch Queue →
+                    </button>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              {/* Tool 3: Signature & Document Cleaner */}
-              <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
-                        <PenTool className="w-5 h-5" aria-hidden="true" />
-                      </div>
-                      <h3 className="text-base font-bold text-[#242824]">Signature & Scan Cleaner</h3>
-                    </div>
-                    <span className="text-[11px] font-mono text-[#737872]">Filter Engine</span>
-                  </div>
-                  <p className="text-xs text-[#737872] leading-relaxed">
-                    Turn messy mobile camera photos of paper signatures and documents into crisp, publication-ready scans. Whitens yellowish lighting shadows while deepening ink pen strokes.
-                  </p>
-                  <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Stroke-preserving S-curve luminance filter</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Removes gray shadows and ambient room glare</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Transparent PNG or pure white JPEG backgrounds</span>
-                    </li>
-                  </ul>
+            {/* SUITE 2: PDF SUITE */}
+            <div className="space-y-4 pt-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#DFE2DC] pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#34483E] bg-[#EAECE7] px-2.5 py-0.5 rounded-[2px]">
+                    PDF Suite
+                  </span>
+                  <h3 className="text-sm font-semibold text-[#242824]">Images to PDF, Document Reducer & Page Extractor</h3>
                 </div>
-                <div className="pt-4 border-t border-[#DFE2DC]">
-                  <button
-                    onClick={onOpenSignature}
-                    className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
-                  >
-                    Open Signature Cleaner →
-                  </button>
-                </div>
+                <span className="text-[11px] text-[#737872]">3 Dedicated In-Browser Tools</span>
               </div>
 
-              {/* Tool 4: Parallel Batch Processing */}
-              <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
-                        <Files className="w-5 h-5" aria-hidden="true" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+                {/* PDF Tool 1: Images to PDF */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <FilePlus className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">Images to PDF</h4>
                       </div>
-                      <h3 className="text-base font-bold text-[#242824]">Batch Queue & ZIP Exporter</h3>
+                      <span className="text-[11px] font-mono text-[#737872]">Document Builder</span>
                     </div>
-                    <span className="text-[11px] font-mono text-[#737872]">Multi-File</span>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      Combine multiple JPEG, PNG, or WebP images into a single standardized PDF document. Reorder pages, rotate 90°, and choose standard paper formats with custom margins.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>A4, US Letter, US Legal, or Fit-to-Image framing</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Interactive page reordering & 90° rotation</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Optional JPEG compression with live size estimate</span>
+                      </li>
+                    </ul>
                   </div>
-                  <p className="text-xs text-[#737872] leading-relaxed">
-                    Process dozens of images simultaneously. Apply shared dimensions and file size targets across the whole queue, audit individual status badges, and download everything in one valid ZIP archive.
-                  </p>
-                  <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Parallel Web Worker execution without UI freezing</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>Automatic plain-text manifest generation</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
-                      <span>One-click batch ZIP export</span>
-                    </li>
-                  </ul>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenImageToPdf}
+                      className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open Images to PDF →
+                    </button>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-[#DFE2DC]">
-                  <button
-                    onClick={onOpenBatch}
-                    className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
-                  >
-                    Open Batch Queue →
-                  </button>
+
+                {/* PDF Tool 2: PDF Reducer */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <FileDown className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">PDF Reducer</h4>
+                      </div>
+                      <span className="text-[11px] font-mono text-[#737872]">Byte Optimizer</span>
+                    </div>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      Shrink bloated PDF documents directly in your browser. Target strict portal limits (e.g., &lt; 500 KB or 1 MB) or pick balanced profiles with zero cloud uploads.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Exact target limit mode (KB / MB) or profile presets</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Resolution downsampling & stream quantization</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Savings breakdown with reduction percentage badge</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenPdfCompressor}
+                      className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open PDF Reducer →
+                    </button>
+                  </div>
+                </div>
+
+                {/* PDF Tool 3: PDF to Images */}
+                <div className="bg-white border border-[#DFE2DC] rounded-[4px] p-5 sm:p-6 space-y-4 shadow-2xs flex flex-col justify-between interactive-card">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="p-2 bg-[#EAF2ED] rounded-[3px] text-[#34483E]">
+                          <FileText className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                        <h4 className="text-base font-bold text-[#242824]">PDF to Images</h4>
+                      </div>
+                      <span className="text-[11px] font-mono text-[#737872]">Page Rasterizer</span>
+                    </div>
+                    <p className="text-xs text-[#737872] leading-relaxed">
+                      Rasterize PDF pages into individual image files. Choose JPEG, PNG, or WebP with configurable DPI scaling. Download all pages in a ZIP or edit pages directly.
+                    </p>
+                    <ul className="text-xs text-[#242824] space-y-1.5 pt-1">
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>High-DPI rendering (96, 150, 200 DPI) via PDF.js</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>One-click "Edit in Image Editor" direct handoff</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#39765A] shrink-0" aria-hidden="true" />
+                        <span>Batch ZIP download for multi-page documents</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="pt-4 border-t border-[#DFE2DC]">
+                    <button
+                      onClick={onOpenPdfToImage}
+                      className="w-full py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 text-center btn-tactile shadow-2xs"
+                    >
+                      Open PDF to Images →
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1125,6 +1298,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 {
                   q: 'Does SpecFit work without an internet connection?',
                   a: 'Yes. Once loaded, SpecFit is fully cached by its Service Worker as a Progressive Web App (PWA). You can disconnect Wi-Fi or go into Airplane Mode, and every feature — including image cropping, filtering, and batch ZIP export — continues functioning normally.'
+                },
+                {
+                  q: 'Can SpecFit convert, compress, and extract PDF files without uploading them?',
+                  a: 'Yes, 100%. SpecFit uses pure client-side PDF engines (pdf-lib and pdfjs-dist) running entirely inside your web browser. When you convert images to PDF, compress PDF documents to meet strict application portal KB limits, or extract pages as high-resolution images, your documents never leave your computer or touch any remote server.'
                 }
               ].map((item, idx) => (
                 <div

@@ -9,7 +9,10 @@ import {
   BookOpen,
   HelpCircle,
   Settings,
-  ShieldCheck
+  ShieldCheck,
+  FilePlus,
+  FileDown,
+  FileImage
 } from 'lucide-react';
 
 export type NavView =
@@ -18,6 +21,9 @@ export type NavView =
   | 'compressor'
   | 'batch'
   | 'signature'
+  | 'image-to-pdf'
+  | 'pdf-compressor'
+  | 'pdf-to-image'
   | 'presets'
   | 'guide'
   | 'settings'
@@ -61,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               SpecFit
             </div>
             <div className="text-[10px] text-[#737872] -mt-0.5">
-              Image & Document Utility
+              Image & PDF Utility
             </div>
           </div>
         </div>
@@ -77,10 +83,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
 
-        {/* PRIMARY TOOLS */}
+        {/* IMAGE SUITE */}
         <div>
           <div className="px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#737872]">
-            Primary Tools
+            Image Suite
           </div>
           <nav className="space-y-0.5">
             <button
@@ -100,19 +106,51 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </button>
 
             <button
-              onClick={() => onSelectView('batch')}
-              className={navItemClass('batch')}
-            >
-              <Files className="w-4 h-4 shrink-0 text-[#34483E]" />
-              <span>Batch Processing</span>
-            </button>
-
-            <button
               onClick={() => onSelectView('signature')}
               className={navItemClass('signature')}
             >
               <PenTool className="w-4 h-4 shrink-0 text-[#34483E]" />
               <span>Signature Cleaner</span>
+            </button>
+
+            <button
+              onClick={() => onSelectView('batch')}
+              className={navItemClass('batch')}
+            >
+              <Files className="w-4 h-4 shrink-0 text-[#34483E]" />
+              <span>Batch Resizer</span>
+            </button>
+          </nav>
+        </div>
+
+        {/* PDF SUITE */}
+        <div>
+          <div className="px-2 mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-[#737872]">
+            PDF Suite
+          </div>
+          <nav className="space-y-0.5">
+            <button
+              onClick={() => onSelectView('image-to-pdf')}
+              className={navItemClass('image-to-pdf')}
+            >
+              <FilePlus className="w-4 h-4 shrink-0 text-[#34483E]" />
+              <span>Images to PDF</span>
+            </button>
+
+            <button
+              onClick={() => onSelectView('pdf-compressor')}
+              className={navItemClass('pdf-compressor')}
+            >
+              <FileDown className="w-4 h-4 shrink-0 text-[#34483E]" />
+              <span>PDF Reducer</span>
+            </button>
+
+            <button
+              onClick={() => onSelectView('pdf-to-image')}
+              className={navItemClass('pdf-to-image')}
+            >
+              <FileImage className="w-4 h-4 shrink-0 text-[#34483E]" />
+              <span>PDF to Images</span>
             </button>
           </nav>
         </div>

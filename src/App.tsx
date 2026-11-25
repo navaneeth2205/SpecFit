@@ -6,11 +6,16 @@ import { MobileDrawer } from './components/layout/MobileDrawer';
 // Landing Page
 import { LandingPage } from './components/landing/LandingPage';
 
-// Primary Tools
+// Primary Tools - Image Suite
 import { UniversalImageEditor } from './components/editor/UniversalImageEditor';
 import { QuickCompressorView } from './components/compressor/QuickCompressorView';
 import { BatchProcessingView } from './components/batch/BatchProcessingView';
 import { SignatureCleanerView } from './components/signature/SignatureCleanerView';
+
+// Primary Tools - PDF Suite
+import { ImageToPdfView } from './components/pdf/ImageToPdfView';
+import { PdfCompressorView } from './components/pdf/PdfCompressorView';
+import { PdfToImageView } from './components/pdf/PdfToImageView';
 
 // Secondary Reference & System Views
 import { PresetsDirectoryView } from './components/presets/PresetsDirectoryView';
@@ -91,6 +96,9 @@ export function App() {
           onOpenCompressor={() => setCurrentView('compressor')}
           onOpenBatch={() => setCurrentView('batch')}
           onOpenSignature={() => setCurrentView('signature')}
+          onOpenImageToPdf={() => setCurrentView('image-to-pdf')}
+          onOpenPdfCompressor={() => setCurrentView('pdf-compressor')}
+          onOpenPdfToImage={() => setCurrentView('pdf-to-image')}
           onOpenPresets={() => setCurrentView('presets')}
           onLoadSampleIntoEditor={(sampleType) => {
             setImageUrlToLoad(undefined);
@@ -172,6 +180,23 @@ export function App() {
 
           {/* PRIMARY TOOL 4: Signature Cleaner */}
           {currentView === 'signature' && <SignatureCleanerView />}
+
+          {/* PDF TOOL 1: Images to PDF Converter */}
+          {currentView === 'image-to-pdf' && <ImageToPdfView />}
+
+          {/* PDF TOOL 2: PDF Reducer */}
+          {currentView === 'pdf-compressor' && <PdfCompressorView />}
+
+          {/* PDF TOOL 3: PDF to Images Extractor */}
+          {currentView === 'pdf-to-image' && (
+            <PdfToImageView
+              onOpenInEditor={(imgUrl) => {
+                setImageUrlToLoad(imgUrl);
+                setSampleToLoad(undefined);
+                setCurrentView('editor');
+              }}
+            />
+          )}
 
           {/* SECONDARY: Presets Library */}
           {currentView === 'presets' && (
