@@ -2,6 +2,7 @@ import React from 'react';
 import {
   X,
   Home,
+  LayoutGrid,
   Image as ImageIcon,
   Minimize2,
   Files,
@@ -68,7 +69,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
 
           {/* Navigation Sections */}
           <div className="space-y-4 text-xs font-medium">
-            <div>
+            <div className="space-y-0.5">
               <button
                 onClick={() => handleNav('landing')}
                 className={`w-full text-left px-3 py-2 rounded-[3px] flex items-center gap-2 transition-colors ${
@@ -77,6 +78,16 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               >
                 <Home className="w-4 h-4 text-[#34483E]" />
                 <span>Overview & Tour</span>
+              </button>
+
+              <button
+                onClick={() => handleNav('dashboard')}
+                className={`w-full text-left px-3 py-2 rounded-[3px] flex items-center gap-2 transition-colors ${
+                  currentView === 'dashboard' ? 'bg-[#EAECE7] text-[#242824] font-semibold border-l-2 border-[#34483E]' : 'text-[#737872]'
+                }`}
+              >
+                <LayoutGrid className="w-4 h-4 text-[#34483E]" />
+                <span>Tools Dashboard</span>
               </button>
             </div>
 

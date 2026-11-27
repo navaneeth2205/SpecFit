@@ -7,7 +7,8 @@ import {
   HelpCircle,
   FileImage,
   ChevronRight,
-  Home
+  Home,
+  LayoutGrid
 } from 'lucide-react';
 import { NavView } from './Sidebar';
 import { PortalPreset } from '../../types';
@@ -37,6 +38,7 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({
 
   const viewTitles: Record<NavView, string> = {
     landing: 'Overview & Tour',
+    dashboard: 'Tools Dashboard',
     editor: 'Image Editor',
     compressor: 'Image Compressor',
     batch: 'Batch Processing',
@@ -131,7 +133,20 @@ export const TopNavigation: React.FC<TopNavigationProps> = ({
       </div>
 
       {/* Right: Status Badges & Controls */}
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => onSelectView('dashboard')}
+          className={`hidden sm:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-[2px] font-medium cursor-pointer transition-colors shadow-2xs ${
+            currentView === 'dashboard'
+              ? 'bg-[#34483E] text-white border border-[#34483E]'
+              : 'text-[#242824] hover:bg-[#F5F5F2] border border-[#DFE2DC]'
+          }`}
+          title="Open Card Dashboard"
+        >
+          <LayoutGrid className="w-3.5 h-3.5 text-[#34483E]" />
+          <span>Dashboard</span>
+        </button>
+
         <button
           onClick={() => onSelectView('landing')}
           className="hidden sm:flex items-center gap-1.5 text-xs text-[#242824] hover:bg-[#F5F5F2] border border-[#DFE2DC] px-2.5 py-1 rounded-[2px] font-medium cursor-pointer transition-colors shadow-2xs"

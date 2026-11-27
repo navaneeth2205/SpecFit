@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Home,
+  LayoutGrid,
   Image as ImageIcon,
   Minimize2,
   Files,
@@ -17,6 +18,7 @@ import {
 
 export type NavView =
   | 'landing'
+  | 'dashboard'
   | 'editor'
   | 'compressor'
   | 'batch'
@@ -72,14 +74,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
         </div>
 
-        {/* OVERVIEW / TOUR */}
-        <div>
+        {/* OVERVIEW & DASHBOARD */}
+        <div className="space-y-0.5">
           <button
             onClick={() => onSelectView('landing')}
             className={navItemClass('landing')}
           >
             <Home className="w-4 h-4 shrink-0 text-[#34483E]" />
             <span>Overview & Tour</span>
+          </button>
+
+          <button
+            onClick={() => onSelectView('dashboard')}
+            className={navItemClass('dashboard')}
+          >
+            <LayoutGrid className="w-4 h-4 shrink-0 text-[#34483E]" />
+            <span>Tools Dashboard</span>
           </button>
         </div>
 

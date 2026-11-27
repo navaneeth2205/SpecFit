@@ -28,7 +28,8 @@ import {
   Compass,
   FilePlus,
   FileDown,
-  FileText
+  FileText,
+  LayoutGrid
 } from 'lucide-react';
 import { PORTAL_PRESETS } from '../../data/presets';
 
@@ -102,6 +103,7 @@ const WEB_SHOWCASE_EXAMPLES: ShowcaseExample[] = [
 ];
 
 interface LandingPageProps {
+  onOpenDashboard: () => void;
   onOpenEditor: () => void;
   onOpenCompressor: () => void;
   onOpenBatch: () => void;
@@ -115,6 +117,7 @@ interface LandingPageProps {
 }
 
 export const LandingPage: React.FC<LandingPageProps> = ({
+  onOpenDashboard,
   onOpenEditor,
   onOpenCompressor,
   onOpenBatch,
@@ -216,8 +219,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <a href="#faq" className="hover:text-[#242824] transition-colors py-1">FAQ</a>
           </nav>
 
-          {/* Quick Action Button with tactile micro-animation */}
-          <div className="flex items-center gap-2.5">
+          {/* Quick Action Buttons with tactile micro-animation */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onOpenDashboard}
+              className="px-3 sm:px-3.5 py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs flex items-center gap-1.5 btn-tactile"
+              aria-label="Open Tools Dashboard"
+            >
+              <LayoutGrid className="w-3.5 h-3.5 text-[#34483E]" aria-hidden="true" />
+              <span className="hidden sm:inline">Tools </span>Dashboard
+            </button>
+
             <button
               onClick={onOpenEditor}
               className="px-3.5 sm:px-4 py-2 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-md flex items-center gap-2 btn-tactile"
@@ -255,11 +267,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             {/* Hero CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
               <button
-                onClick={onOpenEditor}
+                onClick={onOpenDashboard}
                 className="w-full sm:w-auto px-5 py-2.5 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-sm font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-xs hover:shadow-md flex items-center justify-center gap-2 btn-tactile"
               >
-                <span>Launch Universal Editor</span>
-                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                <LayoutGrid className="w-4 h-4" aria-hidden="true" />
+                <span>Open Card Dashboard</span>
+              </button>
+
+              <button
+                onClick={onOpenEditor}
+                className="w-full sm:w-auto px-4 py-2.5 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-sm font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-sm flex items-center justify-center gap-2 btn-tactile"
+              >
+                <ImageIcon className="w-4 h-4 text-[#34483E]" aria-hidden="true" />
+                <span>Image Editor</span>
               </button>
 
               <button
@@ -277,13 +297,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <FileDown className="w-4 h-4 text-[#34483E]" aria-hidden="true" />
                 <span>PDF Reducer</span>
               </button>
-
-              <a
-                href="#tools"
-                className="w-full sm:w-auto px-4 py-2.5 text-[#737872] hover:text-[#242824] text-sm font-medium transition-colors text-center"
-              >
-                All 7 Tools ↓
-              </a>
             </div>
 
             {/* Verified Capabilities Checklist */}
@@ -809,7 +822,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* 6. Core Utility Modules Breakdown */}
         <section id="tools" aria-labelledby="tools-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
+            <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAECE7] px-2 py-0.5 rounded-[2px]">
                 Workhorse Utilities
               </span>
@@ -819,6 +832,16 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <p className="text-xs sm:text-sm text-[#737872]">
                 Seven dedicated desktop workflows across image and PDF processing built to do their jobs reliably, 100% on-device.
               </p>
+              <div className="pt-1">
+                <button
+                  onClick={onOpenDashboard}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-xs font-semibold rounded-[3px] shadow-2xs transition-all cursor-pointer btn-tactile"
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span>Explore Interactive Cards Dashboard</span>
+                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                </button>
+              </div>
             </div>
 
             {/* SUITE 1: IMAGE SUITE */}

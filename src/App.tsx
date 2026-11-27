@@ -3,8 +3,9 @@ import { Sidebar, NavView } from './components/layout/Sidebar';
 import { TopNavigation } from './components/layout/TopNavigation';
 import { MobileDrawer } from './components/layout/MobileDrawer';
 
-// Landing Page
+// Landing Page & Dashboard
 import { LandingPage } from './components/landing/LandingPage';
+import { ToolsDashboardView } from './components/dashboard/ToolsDashboardView';
 
 // Primary Tools - Image Suite
 import { UniversalImageEditor } from './components/editor/UniversalImageEditor';
@@ -88,6 +89,7 @@ export function App() {
     return (
       <div className="min-h-screen bg-[#F5F5F2] text-[#242824]">
         <LandingPage
+          onOpenDashboard={() => setCurrentView('dashboard')}
           onOpenEditor={() => {
             setImageUrlToLoad(undefined);
             setSampleToLoad(undefined);
@@ -157,6 +159,19 @@ export function App() {
         />
 
         <main className="p-3 sm:p-5 lg:p-7 flex-1 max-w-7xl w-full mx-auto animate-fade-in min-w-0">
+          {/* DASHBOARD: Card-based Tools Overview */}
+          {currentView === 'dashboard' && (
+            <ToolsDashboardView
+              onSelectView={setCurrentView}
+              onLoadSampleIntoEditor={(sampleType) => {
+                setImageUrlToLoad(undefined);
+                setSampleToLoad(sampleType);
+                setCurrentView('editor');
+              }}
+              onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
+            />
+          )}
+
           {/* PRIMARY TOOL 1: Universal Image Editor */}
           {currentView === 'editor' && (
             <UniversalImageEditor
