@@ -32,12 +32,29 @@ export function useNetworkAudit(): PrivacyAuditSummary {
   const [totalTransmissionsAttempted, setTotalTransmissionsAttempted] = useState<number>(0);
 
   useEffect(() => {
+    const isInternalAsset = (u: string) =>
+      u.includes('/@') ||
+      u.includes('/node_modules/') ||
+      u.includes('.vite') ||
+      u.includes('vite') ||
+      u.includes('.ts') ||
+      u.includes('.tsx') ||
+      u.includes('.css') ||
+      u.includes('.mjs') ||
+      u.includes('/src/') ||
+      u.includes('localhost') ||
+      u.includes('127.0.0.1');
+
     // 1. Intercept window.fetch
     const originalFetch = window.fetch;
     window.fetch = async (...args) => {
       const [input, init] = args;
       const url = typeof input === 'string' ? input : input instanceof Request ? input.url : '';
       const method = init?.method || (input instanceof Request ? input.method : 'GET');
+
+      if (isInternalAsset(url)) {
+        return originalFetch(...args);
+      }
 
       let payloadSize = 0;
       let payloadType = 'None';
@@ -218,24 +235,35 @@ export function useNetworkAudit(): PrivacyAuditSummary {
       };
     }
 
-    // 4. Monitor WebSockets
-    const OriginalWebSocket = window.WebSocket;
-    (window as any).WebSocket = function (url: string | URL, protocols?: string | string[]) {
-      console.info('[SpecFit Privacy Guard] Monitored WebSocket initiation:', url);
-      const entry: NetworkLogEntry = {
-        id: Math.random().toString(36).substring(2, 9),
-        timestamp: new Date().toLocaleTimeString(),
-        channel: 'websocket',
-        method: 'WS',
-        url: (typeof url === 'string' ? url : url.toString()).slice(0, 80),
-        payloadType: 'websocket-stream',
-        payloadSize: 0,
-        blocked: false,
-        status: 'Internal'
-      };
-      setNetworkLogs((prev) => [entry, ...prev.slice(0, 49)]);
-      return new OriginalWebSocket(url, protocols);
-    };
+    // 4. Safely Monitor WebSockets via Proxy without breaking Vite HMR
+    let OriginalWebSocket: typeof WebSocket | null = null;
+    if (typeof window !== 'undefined' && window.WebSocket) {
+      OriginalWebSocket = window.WebSocket;
+      try {
+        window.WebSocket = new Proxy(OriginalWebSocket, {
+          construct(target, args) {
+            const urlStr = args[0] ? (typeof args[0] === 'string' ? args[0] : args[0].toString()) : '';
+            if (!isInternalAsset(urlStr)) {
+              const entry: NetworkLogEntry = {
+                id: Math.random().toString(36).substring(2, 9),
+                timestamp: new Date().toLocaleTimeString(),
+                channel: 'websocket',
+                method: 'WS',
+                url: urlStr.slice(0, 80),
+                payloadType: 'websocket-stream',
+                payloadSize: 0,
+                blocked: false,
+                status: 'Internal'
+              };
+              setNetworkLogs((prev) => [entry, ...prev.slice(0, 49)]);
+            }
+            return new (target as any)(...args);
+          }
+        });
+      } catch {
+        // If Proxy is not supported in environment, retain original
+      }
+    }
 
     return () => {
       window.fetch = originalFetch;
@@ -244,7 +272,9 @@ export function useNetworkAudit(): PrivacyAuditSummary {
       if (originalBeacon) {
         navigator.sendBeacon = originalBeacon;
       }
-      window.WebSocket = OriginalWebSocket;
+      if (OriginalWebSocket) {
+        window.WebSocket = OriginalWebSocket;
+      }
     };
   }, []);
 
