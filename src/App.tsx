@@ -32,8 +32,52 @@ import { useNetworkAudit } from './hooks/useNetworkAudit';
 import { usePWA } from './hooks/usePWA';
 
 export function App() {
-  // Start on the comprehensive human-designed Landing Page
-  const [currentView, setCurrentView] = useState<NavView>('landing');
+  const validViews: NavView[] = [
+    'landing',
+    'dashboard',
+    'editor',
+    'compressor',
+    'batch',
+    'signature',
+    'image-to-pdf',
+    'pdf-compressor',
+    'pdf-to-image',
+    'presets',
+    'guide',
+    'settings',
+    'faq',
+    'privacy'
+  ];
+
+  // Initialize from URL hash or query parameter for deep-linking
+  const [currentView, setCurrentViewState] = useState<NavView>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '') as NavView;
+      if (validViews.includes(hash)) return hash;
+      const params = new URLSearchParams(window.location.search);
+      const viewParam = params.get('view') as NavView;
+      if (validViews.includes(viewParam)) return viewParam;
+    }
+    return 'landing';
+  });
+
+  const setCurrentView = (view: NavView) => {
+    setCurrentViewState(view);
+    if (typeof window !== 'undefined') {
+      window.location.hash = view;
+    }
+  };
+
+  React.useEffect(() => {
+    const onHashChange = () => {
+      const hash = window.location.hash.replace('#', '') as NavView;
+      if (validViews.includes(hash)) {
+        setCurrentViewState(hash);
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
   const [sampleToLoad, setSampleToLoad] = useState<'portrait' | 'signature' | 'document' | 'landscape' | undefined>(undefined);
   const [imageUrlToLoad, setImageUrlToLoad] = useState<string | undefined>(undefined);
 
