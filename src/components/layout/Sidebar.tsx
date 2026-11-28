@@ -15,6 +15,7 @@ import {
   FileDown,
   FileImage
 } from 'lucide-react';
+import { SpecFitLogo } from '../common/SpecFitLogo';
 
 export type NavView =
   | 'landing'
@@ -58,17 +59,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* Brand Header */}
         <div
           onClick={() => onSelectView('landing')}
-          className="flex items-center gap-2.5 px-2 pt-1 cursor-pointer hover:opacity-85 transition-opacity"
+          className="flex items-center gap-2.5 px-2 pt-1 cursor-pointer hover:opacity-90 transition-opacity"
           title="Go to Overview & Tour"
         >
-          <div className="w-6 h-6 bg-[#34483E] rounded-[3px] flex items-center justify-center text-white font-mono font-bold text-xs tracking-wider">
-            SF
-          </div>
-          <div>
+          <SpecFitLogo size="sm" />
+          <div className="min-w-0">
             <div className="font-semibold text-sm tracking-tight text-[#242824] leading-tight">
               SpecFit
             </div>
-            <div className="text-[10px] text-[#737872] -mt-0.5">
+            <div className="text-[10px] text-[#737872] -mt-0.5 truncate">
               Image & PDF Utility
             </div>
           </div>

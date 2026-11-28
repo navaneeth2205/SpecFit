@@ -286,9 +286,13 @@ export const PdfToImageView: React.FC<PdfToImageViewProps> = ({ onOpenInEditor }
       ) : (
         /* Pages Grid */
         <div className="space-y-4">
-          <div className="flex items-center justify-between text-xs text-[#737872]">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-[#737872] bg-white border border-[#DFE2DC] rounded-[3px] px-4 py-2.5 shadow-2xs">
             <span>
-              Extracted <strong className="text-[#242824]">{pages.length}</strong> pages from <span className="font-mono text-[#242824]">{file.name}</span>
+              Extracted <strong className="text-[#242824]">{pages.length}</strong> {pages.length === 1 ? 'page' : 'pages'} from{' '}
+              <span className="font-mono text-[#242824]">{file.name}</span>
+            </span>
+            <span className="font-mono text-[11px] bg-[#EAF2ED] text-[#2E7252] border border-[#BFD9CA] px-2 py-0.5 rounded-[2px]">
+              Total Output: {pages.reduce((acc, p) => acc + p.sizeKb, 0).toFixed(1)} KB
             </span>
           </div>
 

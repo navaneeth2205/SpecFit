@@ -32,6 +32,7 @@ import {
   LayoutGrid
 } from 'lucide-react';
 import { PORTAL_PRESETS } from '../../data/presets';
+import { SpecFitLogo } from '../common/SpecFitLogo';
 
 interface ShowcaseExample {
   id: string;
@@ -185,58 +186,53 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
       {/* 1. Header Navigation Bar */}
       <header role="banner" className="sticky top-0 z-30 bg-[#F5F5F2]/95 backdrop-blur-md border-b border-[#DFE2DC] transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
           {/* Logo & Brand Identity */}
-          <div className="flex items-center gap-3">
-            <div
-              onClick={onOpenEditor}
-              role="button"
-              tabIndex={0}
-              aria-label="SpecFit Home"
-              onKeyDown={(e) => e.key === 'Enter' && onOpenEditor()}
-              className="w-8 h-8 bg-[#34483E] rounded-[3px] flex items-center justify-center text-white font-mono font-bold text-sm tracking-wider shadow-2xs hover:bg-[#26362E] active:scale-95 transition-all cursor-pointer"
-            >
-              SF
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-base tracking-tight text-[#242824]">SpecFit</span>
-              </div>
-              <p className="text-[11px] text-[#737872] hidden sm:block">
-                Universal Image & Document Preparation Utility
-              </p>
+          <div
+            onClick={onOpenEditor}
+            role="button"
+            tabIndex={0}
+            aria-label="SpecFit Home"
+            onKeyDown={(e) => e.key === 'Enter' && onOpenEditor()}
+            className="flex items-center gap-2.5 cursor-pointer group shrink-0 whitespace-nowrap"
+          >
+            <SpecFitLogo size="sm" className="group-hover:scale-105 transition-transform duration-150" />
+            <div className="flex items-center gap-2.5">
+              <span className="font-semibold text-base tracking-tight text-[#242824]">SpecFit</span>
+              <span className="text-[11px] text-[#737872] hidden xl:inline-block border-l border-[#DFE2DC] pl-2.5">
+                Image &amp; PDF Suite
+              </span>
             </div>
           </div>
 
-          {/* Nav Anchor Links */}
-          <nav role="navigation" aria-label="Main Navigation" className="hidden md:flex items-center gap-6 text-xs font-medium text-[#737872]">
-            <a href="#showcase" className="hover:text-[#242824] transition-colors py-1">Interactive Showcase</a>
-            <a href="#sources" className="hover:text-[#242824] transition-colors py-1">Any Source</a>
-            <a href="#tools" className="hover:text-[#242824] transition-colors py-1">Core Tools</a>
-            <a href="#engine" className="hover:text-[#242824] transition-colors py-1">Compression Math</a>
-            <a href="#privacy" className="hover:text-[#242824] transition-colors py-1">Zero-Upload Privacy</a>
-            <a href="#standards" className="hover:text-[#242824] transition-colors py-1">Standards</a>
-            <a href="#faq" className="hover:text-[#242824] transition-colors py-1">FAQ</a>
+          {/* Nav Anchor Links — Single Row, Zero Overlap */}
+          <nav role="navigation" aria-label="Main Navigation" className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs font-medium text-[#737872] shrink-0 whitespace-nowrap">
+            <a href="#showcase" className="hover:text-[#242824] transition-colors py-1.5 whitespace-nowrap">Showcase</a>
+            <a href="#sources" className="hover:text-[#242824] transition-colors py-1.5 whitespace-nowrap">Any Source</a>
+            <a href="#tools" className="hover:text-[#242824] transition-colors py-1.5 whitespace-nowrap">Tools Suite</a>
+            <a href="#privacy" className="hover:text-[#242824] transition-colors py-1.5 whitespace-nowrap">Privacy</a>
+            <a href="#standards" className="hover:text-[#242824] transition-colors py-1.5 whitespace-nowrap">Standards</a>
+            <a href="#faq" className="hover:text-[#242824] transition-colors py-1.5 whitespace-nowrap">FAQ</a>
           </nav>
 
           {/* Quick Action Buttons with tactile micro-animation */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0 whitespace-nowrap">
             <button
               onClick={onOpenDashboard}
-              className="px-3 sm:px-3.5 py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs flex items-center gap-1.5 btn-tactile"
+              className="px-2.5 sm:px-3.5 py-2 bg-white hover:bg-[#FAF9F6] active:scale-95 text-[#242824] border border-[#DFE2DC] hover:border-[#34483E] text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs flex items-center gap-1.5 btn-tactile whitespace-nowrap"
               aria-label="Open Tools Dashboard"
             >
-              <LayoutGrid className="w-3.5 h-3.5 text-[#34483E]" aria-hidden="true" />
-              <span className="hidden sm:inline">Tools </span>Dashboard
+              <LayoutGrid className="w-3.5 h-3.5 text-[#34483E] shrink-0" aria-hidden="true" />
+              <span><span className="hidden sm:inline">Tools </span>Dashboard</span>
             </button>
 
             <button
               onClick={onOpenEditor}
-              className="px-3.5 sm:px-4 py-2 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-md flex items-center gap-2 btn-tactile"
+              className="px-3 sm:px-4 py-2 bg-[#34483E] hover:bg-[#26362E] active:scale-95 text-white text-xs font-semibold rounded-[3px] cursor-pointer transition-all duration-150 shadow-2xs hover:shadow-md flex items-center gap-1.5 btn-tactile whitespace-nowrap"
               aria-label="Open Universal Image Editor"
             >
               <span><span className="hidden sm:inline">Open </span>Editor</span>
-              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -316,7 +312,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             {/* 3. INTERACTIVE BEFORE/AFTER WEB SHOWCASE (HERO CARD) */}
-            <div id="showcase" className="mt-8 sm:mt-10 bg-white border border-[#DFE2DC] rounded-[4px] shadow-sm p-4 sm:p-6 text-left transition-all duration-200">
+            <div id="showcase" className="scroll-mt-20 mt-8 sm:mt-10 bg-white border border-[#DFE2DC] rounded-[4px] shadow-sm p-4 sm:p-6 text-left transition-all duration-200">
               {/* Showcase Category Tabs (Horizontally scrollable on mobile) */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 mb-4 border-b border-[#DFE2DC] gap-3">
                 <div
@@ -529,7 +525,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
         {/* 4. "Take Images From Any Source" Section with Visual Previews */}
-        <section id="sources" aria-labelledby="sources-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-white">
+        <section id="sources" aria-labelledby="sources-heading" className="scroll-mt-16 py-14 sm:py-20 border-b border-[#DFE2DC] bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 space-y-2">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAECE7] px-2 py-0.5 rounded-[2px]">
@@ -820,7 +816,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
         {/* 6. Core Utility Modules Breakdown */}
-        <section id="tools" aria-labelledby="tools-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
+        <section id="tools" aria-labelledby="tools-heading" className="scroll-mt-16 py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAECE7] px-2 py-0.5 rounded-[2px]">
@@ -1157,7 +1153,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
         {/* 7. Mathematical Compression Engine Deep-Dive */}
-        <section id="engine" aria-labelledby="engine-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-white">
+        <section id="engine" aria-labelledby="engine-heading" className="scroll-mt-16 py-14 sm:py-20 border-b border-[#DFE2DC] bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
             <div className="text-center space-y-2">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAF2ED] px-2 py-0.5 rounded-[2px]">
@@ -1200,7 +1196,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
         {/* 8. Zero-Cloud Privacy Guarantee */}
-        <section id="privacy" aria-labelledby="privacy-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
+        <section id="privacy" aria-labelledby="privacy-heading" className="scroll-mt-16 py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div className="w-12 h-12 rounded-[4px] bg-[#EAF2ED] text-[#34483E] flex items-center justify-center mx-auto border border-[#BFD9CA]">
               <Lock className="w-6 h-6 text-[#39765A]" aria-hidden="true" />
@@ -1238,7 +1234,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
         {/* 9. Standards & Presets Directory (Secondary) */}
-        <section id="standards" aria-labelledby="standards-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-white">
+        <section id="standards" aria-labelledby="standards-heading" className="scroll-mt-16 py-14 sm:py-20 border-b border-[#DFE2DC] bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAECE7] px-2 py-0.5 rounded-[2px]">
@@ -1289,7 +1285,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
         {/* 10. Frequently Asked Questions (FAQ) with Animated Accordion */}
-        <section id="faq" aria-labelledby="faq-heading" className="py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
+        <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-16 py-14 sm:py-20 border-b border-[#DFE2DC] bg-[#F5F5F2]">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div className="text-center space-y-2">
               <span className="text-xs font-mono font-semibold text-[#34483E] uppercase tracking-wider bg-[#EAECE7] px-2 py-0.5 rounded-[2px]">
@@ -1384,12 +1380,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       {/* 12. Footer */}
       <footer role="contentinfo" className="py-8 bg-[#F5F5F2] border-t border-[#DFE2DC] text-xs text-[#737872]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            <div className="w-5 h-5 bg-[#34483E] rounded-[2px] flex items-center justify-center text-white font-mono font-bold text-[10px]">
-              SF
-            </div>
+          <div className="flex items-center justify-center sm:justify-start gap-2.5">
+            <SpecFitLogo size="xs" />
             <span className="font-semibold text-[#242824]">SpecFit</span>
-            <span>— Universal Image & Document Preparation Utility.</span>
+            <span>— Universal Image &amp; Document Preparation Utility.</span>
           </div>
 
           <div className="flex items-center justify-center gap-6">

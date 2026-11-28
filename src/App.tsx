@@ -202,7 +202,7 @@ export function App() {
           onSelectPreset={handleApplyPresetToEditor}
         />
 
-        <main className="p-3 sm:p-5 lg:p-7 flex-1 max-w-7xl w-full mx-auto animate-fade-in min-w-0">
+        <main key={currentView} className="p-3 sm:p-5 lg:p-7 flex-1 max-w-7xl w-full mx-auto animate-fade-in min-w-0">
           {/* DASHBOARD: Card-based Tools Overview */}
           {currentView === 'dashboard' && (
             <ToolsDashboardView

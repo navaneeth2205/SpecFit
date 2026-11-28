@@ -350,10 +350,10 @@ export const ToolsDashboardView: React.FC<ToolsDashboardViewProps> = ({
 
       {/* Category Filter Pills */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-1.5 bg-white p-1 rounded-[3px] border border-[#DFE2DC] shadow-2xs">
+        <div className="flex flex-wrap items-center gap-1.5 bg-white p-1.5 rounded-[3px] border border-[#DFE2DC] shadow-2xs">
           <button
             onClick={() => setFilter('all')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all cursor-pointer ${
+            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all duration-150 cursor-pointer chip-tactile ${
               filter === 'all'
                 ? 'bg-[#34483E] text-white shadow-2xs'
                 : 'text-[#737872] hover:text-[#242824] hover:bg-[#F0F1ED]'
@@ -363,7 +363,7 @@ export const ToolsDashboardView: React.FC<ToolsDashboardViewProps> = ({
           </button>
           <button
             onClick={() => setFilter('image')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all duration-150 cursor-pointer flex items-center gap-1.5 chip-tactile ${
               filter === 'image'
                 ? 'bg-[#34483E] text-white shadow-2xs'
                 : 'text-[#737872] hover:text-[#242824] hover:bg-[#F0F1ED]'
@@ -374,7 +374,7 @@ export const ToolsDashboardView: React.FC<ToolsDashboardViewProps> = ({
           </button>
           <button
             onClick={() => setFilter('pdf')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all duration-150 cursor-pointer flex items-center gap-1.5 chip-tactile ${
               filter === 'pdf'
                 ? 'bg-[#34483E] text-white shadow-2xs'
                 : 'text-[#737872] hover:text-[#242824] hover:bg-[#F0F1ED]'
@@ -385,7 +385,7 @@ export const ToolsDashboardView: React.FC<ToolsDashboardViewProps> = ({
           </button>
           <button
             onClick={() => setFilter('reference')}
-            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-semibold rounded-[2px] transition-all duration-150 cursor-pointer flex items-center gap-1.5 chip-tactile ${
               filter === 'reference'
                 ? 'bg-[#34483E] text-white shadow-2xs'
                 : 'text-[#737872] hover:text-[#242824] hover:bg-[#F0F1ED]'
@@ -403,12 +403,13 @@ export const ToolsDashboardView: React.FC<ToolsDashboardViewProps> = ({
 
       {/* Interactive Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filteredCards.map((tool) => {
+        {filteredCards.map((tool, index) => {
           const IconComponent = tool.icon;
           return (
             <div
-              key={tool.id}
-              className="bg-white border border-[#DFE2DC] hover:border-[#34483E] rounded-[4px] p-5 shadow-2xs flex flex-col justify-between transition-all duration-200 group interactive-card"
+              key={`${filter}-${tool.id}`}
+              style={{ animationDelay: `${index * 35}ms` }}
+              className="bg-white border border-[#DFE2DC] hover:border-[#34483E] rounded-[4px] p-5 shadow-2xs flex flex-col justify-between transition-all duration-200 group interactive-card animate-fade-in-up"
             >
               <div className="space-y-3.5">
                 {/* Header: Icon, Category & Badge */}

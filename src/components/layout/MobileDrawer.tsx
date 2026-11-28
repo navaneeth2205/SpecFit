@@ -17,6 +17,7 @@ import {
   FileImage
 } from 'lucide-react';
 import { NavView } from './Sidebar';
+import { SpecFitLogo } from '../common/SpecFitLogo';
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -53,11 +54,9 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
       <div className="relative w-68 bg-[#F5F5F2] h-full shadow-lg flex flex-col justify-between p-4 z-10 animate-in slide-in-from-left duration-200 overflow-y-auto">
         <div className="space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-[#DFE2DC]">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-[#34483E] rounded-[3px] flex items-center justify-center text-white font-mono font-bold text-xs">
-                SF
-              </div>
-              <span className="font-semibold text-sm text-[#242824]">SpecFit Tools</span>
+            <div className="flex items-center gap-2.5">
+              <SpecFitLogo size="xs" />
+              <span className="font-semibold text-sm text-[#242824]">SpecFit Suite</span>
             </div>
             <button
               onClick={onClose}

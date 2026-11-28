@@ -142,6 +142,31 @@ export const ImageToPdfView: React.FC = () => {
     }
   };
 
+  // Real-time byte totals & live output KB estimation
+  const totalInputBytes = items.reduce((acc, item) => acc + (item.file.size || 0), 0);
+  const totalInputKb = +(totalInputBytes / 1024).toFixed(1);
+
+  const estimatedOutputKb = (() => {
+    if (items.length === 0) return 0;
+    const pdfOverheadKb = 3.5 + items.length * 0.8;
+    if (!compress) {
+      return +(totalInputKb + pdfOverheadKb).toFixed(1);
+    }
+    const estimatedImageBytes = items.reduce((acc, item) => {
+      const isLossless = item.file.type === 'image/png' || item.name.toLowerCase().endsWith('.png');
+      const factor = isLossless
+        ? Math.max(0.18, quality * 0.45)
+        : Math.max(0.35, Math.min(1.0, quality * 0.92));
+      return acc + (item.file.size || 0) * factor;
+    }, 0);
+    return +(estimatedImageBytes / 1024 + pdfOverheadKb).toFixed(1);
+  })();
+
+  const sizeDeltaPercent =
+    result && totalInputBytes > 0
+      ? Math.round(((result.sizeBytes - totalInputBytes) / totalInputBytes) * 100)
+      : null;
+
   const handleDownload = () => {
     if (!result) return;
     const cleanName = docTitle.trim().replace(/[^a-zA-Z0-9_-]/g, '_') || 'converted_document';
@@ -280,8 +305,13 @@ export const ImageToPdfView: React.FC = () => {
                     </div>
 
                     {/* Item Metadata */}
-                    <div className="text-[11px] text-[#242824] truncate font-medium" title={item.name}>
-                      {item.name}
+                    <div className="flex items-center justify-between gap-1.5">
+                      <div className="text-[11px] text-[#242824] truncate font-medium" title={item.name}>
+                        {item.name}
+                      </div>
+                      <span className="text-[10px] font-mono text-[#737872] shrink-0">
+                        {(item.file.size / 1024).toFixed(0)} KB
+                      </span>
                     </div>
 
                     {/* Controls Bar */}
@@ -474,20 +504,61 @@ export const ImageToPdfView: React.FC = () => {
             )}
           </div>
 
+          {/* Live Size Forecast & Output Comparison */}
+          {items.length > 0 && !result && (
+            <div className="p-3 bg-[#F5F5F2] border border-[#DFE2DC] rounded-[3px] space-y-1.5 text-xs">
+              <div className="flex items-center justify-between font-semibold text-[#242824]">
+                <span className="flex items-center gap-1.5">
+                  <Info className="w-3.5 h-3.5 text-[#34483E]" />
+                  Live PDF Size Estimate
+                </span>
+                <span className="font-mono text-[#34483E]">~{estimatedOutputKb} KB</span>
+              </div>
+              <div className="flex justify-between text-[11px] text-[#737872] font-mono">
+                <span>Source Images ({items.length}):</span>
+                <span>{totalInputKb} KB</span>
+              </div>
+              <p className="text-[10px] text-[#737872] leading-snug">
+                {compress
+                  ? `Estimated after ${Math.round(quality * 100)}% JPEG stream compression. Click Generate for exact bytes.`
+                  : 'Lossless embedding mode. Output closely tracks original source bytes.'}
+              </p>
+            </div>
+          )}
+
           {/* Result Card */}
           {result && (
-            <div className="p-3 bg-[#EAF2ED] border border-[#BFD9CA] rounded-[3px] space-y-1.5 text-xs">
-              <div className="flex items-center gap-1.5 font-semibold text-[#39765A]">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>PDF Document Ready</span>
+            <div className="p-3.5 bg-[#EAF2ED] border border-[#BFD9CA] rounded-[3px] space-y-2 text-xs animate-fade-in">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 font-semibold text-[#2E7252]">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>PDF Document Ready</span>
+                </div>
+                {sizeDeltaPercent !== null && (
+                  <span
+                    className={`font-mono text-[10px] font-bold px-1.5 py-0.5 rounded-[2px] ${
+                      sizeDeltaPercent <= 0
+                        ? 'bg-[#39765A] text-white'
+                        : 'bg-white text-[#34483E] border border-[#BFD9CA]'
+                    }`}
+                  >
+                    {sizeDeltaPercent <= 0 ? `${sizeDeltaPercent}% smaller` : `+${sizeDeltaPercent}%`}
+                  </span>
+                )}
               </div>
-              <div className="flex justify-between text-[#242824] font-mono">
-                <span>Output File Size:</span>
-                <span className="font-bold">{result.sizeKb} KB</span>
-              </div>
-              <div className="flex justify-between text-[#737872]">
-                <span>Total Pages:</span>
-                <span>{result.pageCount} Pages</span>
+              <div className="space-y-1 pt-1 border-t border-[#BFD9CA]/60">
+                <div className="flex justify-between text-[#737872] font-mono text-[11px]">
+                  <span>Input Images Total:</span>
+                  <span>{totalInputKb} KB</span>
+                </div>
+                <div className="flex justify-between text-[#242824] font-mono">
+                  <span>Final PDF Size:</span>
+                  <span className="font-bold text-[#2E7252]">{result.sizeKb} KB</span>
+                </div>
+                <div className="flex justify-between text-[#737872] text-[11px]">
+                  <span>Total Pages:</span>
+                  <span>{result.pageCount} {result.pageCount === 1 ? 'Page' : 'Pages'}</span>
+                </div>
               </div>
             </div>
           )}
